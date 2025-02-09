@@ -2,58 +2,70 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/inter": "^5.1.1",
-    "@mui/icons-material": "^5.15.10",
-    "@mui/material": "^5.15.10",
-    "@mui/x-data-grid": "^6.19.4",
-    "@testing-library/jest-dom": "5.17.0",
-    "@testing-library/react": "13.4.0",
-    "@testing-library/user-event": "13.5.0",
-    "@types/jest": "27.5.2",
-    "@types/node": "^16.18.82",
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
-    "ajv": "^8.12.0",
-    "ajv-keywords": "^5.1.0",
-    "date-fns": "^2.30.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-pro-sidebar": "^1.1.0",
-    "react-router-dom": "^6.22.1",
-    "react-scripts": "5.0.1",
-    "sass": "1.71.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "2.1.4"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@craco/craco": "^7.1.0"
+  "author": "lnfinitl",
+  "description": "Modern frontend application for document management and analytics",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lnfinitl/frontend.git"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "backup": "powershell Compress-Archive -Path ./* -DestinationPath ../frontend_backup.zip -Force",
-    "backup:dated": "powershell Compress-Archive -Path ./* -DestinationPath \"../frontend_backup_$(Get-Date -Format 'yyyyMMdd').zip\" -Force",
-    "save": "git add . && git commit -m \"Auto-save by lnfinitl: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\"",
-    "save:tag": "git add . && git commit -m \"Version save by lnfinitl: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\" && git tag -a \"v$(Get-Date -Format 'yyyyMMdd')\" -m \"Version snapshot $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\"",
-    "version:patch": "npm version patch && git push && git push --tags",
-    "version:minor": "npm version minor && git push && git push --tags",
-    "version:major": "npm version major && git push && git push --tags",
-    "list:versions": "git tag --sort=-v:refname",
-    "list:backups": "dir ..\frontend_backup*.zip",
-    "clean:backups": "del ..\frontend_backup*.zip",
-    "restore:latest": "git checkout main && npm install"
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,scss,md}",
+    "backup": "tar -czf frontend_backup_$(date +%Y%m%d).tar.gz --exclude='node_modules' --exclude='.git' --exclude='build' .",
+    "backup:dated": "tar -czf frontend_backup_$(date +%Y%m%d_%H%M%S).tar.gz --exclude='node_modules' --exclude='.git' --exclude='build' .",
+    "backup:full": "tar -czf frontend_full_$(date +%Y%m%d_%H%M%S).tar.gz --exclude='node_modules' --exclude='.git' --exclude='build' .",
+    "backup:source": "tar -czf frontend_source_$(date +%Y%m%d_%H%M%S).tar.gz src/",
+    "backup:config": "tar -czf frontend_config_$(date +%Y%m%d_%H%M%S).tar.gz package.json package-lock.json tsconfig.json .eslintrc.js .prettierrc",
+    "restore": "node scripts/restore.js",
+    "restore:latest": "node scripts/restore.js $(ls -t backups/frontend_*.tar.gz | head -1)",
+    "type-check": "tsc --noEmit",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "prepare": "husky install"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.31",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
+    "date-fns": "^2.30.0",
+    "formik": "^2.2.9",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "5.0.1",
+    "sass": "^1.62.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "source-map-explorer": "^2.5.3"
   },
   "browserslist": {
     "production": [
@@ -67,9 +79,33 @@
       "last 1 safari version"
     ]
   },
-  "description": "### Команди - `npm run backup` - створити ZIP архів - `npm run save` - зберегти поточний стан - `npm run save:tag` - зберегти стан і створити тег - `npm run version:patch` - збільшити патч версію - `npm run version:minor` - збільшити мінорну версію - `npm run version:major` - збільшити мажорну версію - `npm run list:versions` - показати всі версії - `npm run rollback` - відкотитися до попередньої версії",
-  "main": ".eslintrc.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "build": {
+    "date": "2025-02-09 12:42:46",
+    "author": "lnfinitl",
+    "environment": "development"
+  }
 }

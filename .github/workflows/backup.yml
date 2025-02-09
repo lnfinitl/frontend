@@ -2,30 +2,93 @@ name: Automated Backup
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
-  workflow_dispatch:      # Manual trigger
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+    inputs:
+      backup_type:
+        description: 'Type of backup to perform'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - source-only
+          - config-only
+
+env:
+  BACKUP_RETENTION_DAYS: 30
+  BACKUP_DATE: $(date -u +'%Y-%m-%d_%H-%M-%S')
 
 jobs:
   backup:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0    # Fetch all history
-    
-    - name: Create dated backup
-      run: |
-        BACKUP_DATE=$(date +%Y%m%d_%H%M%S)
-        tar -czf frontend_backup_${BACKUP_DATE}.tar.gz \
-          --exclude='node_modules' \
-          --exclude='.git' \
-          --exclude='build' \
-          .
-    
-    - name: Upload backup to artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: frontend-backup-${{ github.sha }}
-        path: frontend_backup_*.tar.gz
-        retention-days: 30
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Create full backup
+        if: github.event.inputs.backup_type == 'full' || github.event.inputs.backup_type == ''
+        run: |
+          BACKUP_NAME="frontend_full_${{ env.BACKUP_DATE }}"
+          tar -czf "${BACKUP_NAME}.tar.gz" \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='build' \
+            .
+      
+      - name: Create source-only backup
+        if: github.event.inputs.backup_type == 'source-only'
+        run: |
+          BACKUP_NAME="frontend_source_${{ env.BACKUP_DATE }}"
+          tar -czf "${BACKUP_NAME}.tar.gz" \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='build' \
+            --exclude='coverage' \
+            src/
+      
+      - name: Create config-only backup
+        if: github.event.inputs.backup_type == 'config-only'
+        run: |
+          BACKUP_NAME="frontend_config_${{ env.BACKUP_DATE }}"
+          tar -czf "${BACKUP_NAME}.tar.gz" \
+            package.json \
+            package-lock.json \
+            tsconfig.json \
+            .eslintrc.js \
+            .prettierrc \
+            .env.example
+      
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-backup-${{ github.sha }}
+          path: frontend_*.tar.gz
+          retention-days: ${{ env.BACKUP_RETENTION_DAYS }}
+      
+      - name: Cleanup old backups
+        run: |
+          find . -name "frontend_*.tar.gz" -mtime +${{ env.BACKUP_RETENTION_DAYS }} -delete
+
+      - name: Generate backup report
+        run: |
+          echo "Backup Report - $(date -u +'%Y-%m-%d %H:%M:%S')" > backup-report.txt
+          echo "Type: ${{ github.event.inputs.backup_type || 'scheduled-full' }}" >> backup-report.txt
+          echo "Files:" >> backup-report.txt
+          ls -lh frontend_*.tar.gz >> backup-report.txt
+      
+      - name: Upload backup report
+        uses: actions/upload-artifact@v3
+        with:
+          name: backup-report-${{ github.sha }}
+          path: backup-report.txt
+          retention-days: ${{ env.BACKUP_RETENTION_DAYS }}
