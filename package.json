@@ -1,0 +1,75 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/inter": "^5.1.1",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.10",
+    "@mui/x-data-grid": "^6.19.4",
+    "@testing-library/jest-dom": "5.17.0",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "13.5.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "^16.18.82",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0",
+    "date-fns": "^2.30.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-pro-sidebar": "^1.1.0",
+    "react-router-dom": "^6.22.1",
+    "react-scripts": "5.0.1",
+    "sass": "1.71.0",
+    "typescript": "^4.9.5",
+    "web-vitals": "2.1.4"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "backup": "powershell Compress-Archive -Path ./* -DestinationPath ../frontend_backup.zip -Force",
+    "backup:dated": "powershell Compress-Archive -Path ./* -DestinationPath \"../frontend_backup_$(Get-Date -Format 'yyyyMMdd').zip\" -Force",
+    "save": "git add . && git commit -m \"Auto-save by lnfinitl: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\"",
+    "save:tag": "git add . && git commit -m \"Version save by lnfinitl: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\" && git tag -a \"v$(Get-Date -Format 'yyyyMMdd')\" -m \"Version snapshot $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')\"",
+    "version:patch": "npm version patch && git push && git push --tags",
+    "version:minor": "npm version minor && git push && git push --tags",
+    "version:major": "npm version major && git push && git push --tags",
+    "list:versions": "git tag --sort=-v:refname",
+    "list:backups": "dir ..\frontend_backup*.zip",
+    "clean:backups": "del ..\frontend_backup*.zip",
+    "restore:latest": "git checkout main && npm install"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "### Команди - `npm run backup` - створити ZIP архів - `npm run save` - зберегти поточний стан - `npm run save:tag` - зберегти стан і створити тег - `npm run version:patch` - збільшити патч версію - `npm run version:minor` - збільшити мінорну версію - `npm run version:major` - збільшити мажорну версію - `npm run list:versions` - показати всі версії - `npm run rollback` - відкотитися до попередньої версії",
+  "main": ".eslintrc.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

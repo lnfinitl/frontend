@@ -1,0 +1,231 @@
+.ps-sidebar-root {
+  border: none !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  transition: all 0.3s ease-in-out;
+  
+  .ps-menu-button {
+    margin: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: rgba(16, 56, 125, 0.04) !important;
+      transform: translateX(4px);
+    }
+    
+    &.ps-active {
+      background: linear-gradient(45deg, rgba(16, 56, 125, 0.08), rgba(16, 56, 125, 0.12)) !important;
+      
+      .ps-menu-label {
+        color: #10387d;
+        font-weight: 500;
+      }
+      
+      svg {
+        color: #10387d;
+      }
+    }
+  }
+  
+  .ps-menu-label {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #64748b;
+  }
+
+  svg {
+    transition: all 0.2s ease-in-out;
+    color: #64748b;
+  }
+}
+
+.MuiAppBar-root {
+  background: linear-gradient(90deg, #10387d 0%, #2563eb 100%) !important;
+  box-shadow: 0 4px 20px rgba(16, 56, 125, 0.15) !important;
+
+  .MuiToolbar-root {
+    padding: 0 24px;
+  }
+
+  .MuiAvatar-root {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  
+  .datetime-display {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+  }
+}
+
+// Додаткові стилі для таблиці
+.MuiDataGrid-root {
+  background: #ffffff;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .MuiDataGrid-columnHeaders {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .MuiDataGrid-cell {
+    border-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .MuiDataGrid-row {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(16, 56, 125, 0.02);
+    }
+
+    &.Mui-selected {
+      background-color: rgba(16, 56, 125, 0.08);
+      &:hover {
+        background-color: rgba(16, 56, 125, 0.12);
+      }
+    }
+  }
+}
+
+// Додаткові стилі для форм
+.MuiDialog-paper {
+  .MuiDialogTitle-root {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    padding: 20px 24px;
+    font-weight: 600;
+  }
+
+  .MuiDialogContent-root {
+    padding: 24px;
+
+    .MuiTextField-root {
+      margin-bottom: 16px;
+    }
+  }
+
+  .MuiDialogActions-root {
+    padding: 16px 24px;
+    background-color: #f8fafc;
+  }
+}
+
+// Анімації для кнопок дій
+.document-actions {
+  display: flex;
+  gap: 8px;
+  
+  .MuiIconButton-root {
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    color: #64748b;
+    
+    &:hover {
+      background-color: rgba(16, 56, 125, 0.04);
+      color: #10387d;
+      transform: translateY(-1px);
+    }
+
+    &.delete-button:hover {
+      background-color: rgba(239, 68, 68, 0.04);
+      color: #ef4444;
+    }
+  }
+}
+
+// Стилі для повідомлень
+.MuiAlert-root {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  
+  &.MuiAlert-standardSuccess {
+    background-color: #f0fdf4;
+    color: #166534;
+    
+    .MuiAlert-icon {
+      color: #22c55e;
+    }
+  }
+  
+  &.MuiAlert-standardError {
+    background-color: #fef2f2;
+    color: #991b1b;
+    
+    .MuiAlert-icon {
+      color: #ef4444;
+    }
+  }
+  
+  &.MuiAlert-standardWarning {
+    background-color: #fffbeb;
+    color: #92400e;
+    
+    .MuiAlert-icon {
+      color: #f59e0b;
+    }
+  }
+  
+  &.MuiAlert-standardInfo {
+    background-color: #f0f9ff;
+    color: #075985;
+    
+    .MuiAlert-icon {
+      color: #3b82f6;
+    }
+  }
+}
+
+// Стилі для завантаження
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+  .MuiCircularProgress-root {
+    color: #10387d;
+  }
+}
+
+// Адаптивні стилі
+@media (max-width: 768px) {
+  .ps-sidebar-root {
+    position: fixed;
+    z-index: 1200;
+  }
+
+  .MuiAppBar-root {
+    .MuiToolbar-root {
+      padding: 0 16px;
+    }
+  }
+
+  .user-info {
+    .datetime-display {
+      display: none;
+    }
+  }
+}

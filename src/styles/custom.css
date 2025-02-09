@@ -1,0 +1,201 @@
+/* Загальні стилі */
+body {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+}
+
+/* Стилізація навігації */
+.main-nav {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 0.75rem 1.5rem;
+}
+
+.main-nav .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.main-nav .nav-link:hover {
+  background-color: rgba(255,255,255,0.1);
+  transform: translateY(-1px);
+}
+
+/* Бічна панель */
+.sidebar {
+  background: white;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+}
+
+.sidebar .nav-link {
+  color: #2c3e50;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #f8f9fa;
+  transform: translateX(5px);
+}
+
+.sidebar .nav-link.active {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar .nav-link i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+/* Картки документів */
+.document-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.document-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Таблиця */
+.custom-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.custom-table thead th {
+  background: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 1rem;
+}
+
+.custom-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Кнопки */
+.btn-custom-primary {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Форми */
+.custom-form-control {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 0.6rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.custom-form-control:focus {
+  border-color: #4b6cb7;
+  box-shadow: 0 0 0 0.2rem rgba(75,108,183,0.1);
+}
+
+/* Бейджі статусів */
+.badge {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.badge-draft {
+  background-color: #ffd43b;
+  color: #664d03;
+}
+
+.badge-confirmed {
+  background-color: #40c057;
+  color: #0b2e13;
+}
+
+.badge-canceled {
+  background-color: #ff6b6b;
+  color: #7f1d1d;
+}
+
+/* Модальні вікна */
+.custom-modal .modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.custom-modal .modal-header {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem;
+}
+
+.custom-modal .modal-body {
+  padding: 1.5rem;
+}
+
+.custom-modal .modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 1.2rem;
+}
+
+/* Анімації */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .sidebar {
+    border-radius: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-table {
+    font-size: 0.9rem;
+  }
+  
+  .btn-custom-primary {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

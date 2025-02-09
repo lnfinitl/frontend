@@ -1,0 +1,57 @@
+.MuiDialog-paper {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.MuiDialogTitle-root {
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 20px 24px;
+  font-weight: 600;
+}
+
+.MuiDialogContent-root {
+  padding: 24px !important;
+
+  .MuiGrid-container {
+    gap: 16px;
+  }
+
+  .MuiFormControl-root {
+    .MuiInputLabel-root {
+      color: #64748b;
+    }
+
+    .MuiOutlinedInput-root {
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba(58, 54, 224, 0.02);
+      }
+
+      &.Mui-focused {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #3a36e0;
+          border-width: 2px;
+        }
+      }
+    }
+  }
+}
+
+.MuiDialogActions-root {
+  padding: 16px 24px;
+  background: #f8fafc;
+
+  .MuiButton-root {
+    min-width: 100px;
+    
+    &.MuiButton-contained {
+      background: linear-gradient(45deg, #3a36e0, #5553ff);
+      
+      &:hover {
+        background: linear-gradient(45deg, #5553ff, #6561ff);
+      }
+    }
+  }
+}
